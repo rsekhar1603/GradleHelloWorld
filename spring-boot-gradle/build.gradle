@@ -35,32 +35,5 @@ dependencies {
 	,'javax.servlet:jstl')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
-task encodePassword(type: JavaExec) {
-	  classpath = sourceSets.test.runtimeClasspath
-	  main = 'com.leanstacks.ws.util.BCryptPasswordEncoderUtil'
-	  if(project.hasProperty('mainargs')) {
-	    args(mainargs.split(','))
-	 }
-	  
-task build(dependsOn: 'buildProject') << {
-	   println "------------------------"
-	   println "Deploying Start...."
-	   copy{
-	        from "build/libs"
-	        into "/usr/local/tomcat/webapps"
-	      }
-	    println "Deploying End...."
-	    println "------------------------"
-	}
-	task buildProject (overwrite: true, dependsOn: ['cleanProject','war']) {
-		println "------------------------"
-		println "Building war file...." 
-		println "------------------------"
-	}
-	task cleanProject(overwrite: true, dependsOn: cleanBuild) {
-	
-		println "------------------------"
-		println "Cleaning build files...."
-		println "------------------------"
-	}
-}
+tomcatRun.contextPath = '/'
+tomcatRunWar.contextPath = '/'
