@@ -33,7 +33,7 @@ dependencies {
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 task deploy(dependsOn: 'buildProject') << {
-	   println "------------------------"
+	   println "------------------------ hello"
 	   println "Deploying Start...."
 	   copy{
 	        from "build/libs"
