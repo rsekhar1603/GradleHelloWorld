@@ -13,6 +13,7 @@ buildscript {
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
+apply plugin: 'war'
 
 jar {
 	baseName = 'boot-gradle'
@@ -30,4 +31,26 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web','org.apache.tomcat.embed:tomcat-embed-jasper'
 	,'javax.servlet:jstl')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+task deploy(dependsOn: 'buildProject') << {
+	   println "------------------------"
+	   println "Deploying Start...."
+	   copy{
+	        from "build/libs"
+	        into "/usr/local/tomcat7/webapps"
+	      }
+	    println "Deploying End...."
+	    println "------------------------"
+}
+	task buildProject (overwrite: true, dependsOn: ['cleanProject','war']) {
+		println "------------------------"
+		println "Building war file...." 
+		println "------------------------"
+	}
+	task cleanProject(overwrite: true, dependsOn: cleanBuild) {
+	
+		println "------------------------"
+		println "Cleaning build files...."
+		println "------------------------"
+	}
 }
