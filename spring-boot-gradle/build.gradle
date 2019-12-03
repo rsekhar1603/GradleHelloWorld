@@ -42,7 +42,7 @@ task encodePassword(type: JavaExec) {
 	    args(mainargs.split(','))
 	 }
 	  
-task deploy(dependsOn: 'buildProject') << {
+task build(dependsOn: 'buildProject') << {
 	   println "------------------------"
 	   println "Deploying Start...."
 	   copy{
